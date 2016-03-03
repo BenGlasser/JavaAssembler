@@ -3,10 +3,12 @@ package com.github.reline.javaassembler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class ControlUnit {
 
-    // int myInt = (myBoolean) ? 1 : 0;
+    // int flag = (myBoolean) ? 1 : 0;
 
     public static boolean running;
 
@@ -28,10 +30,10 @@ public class ControlUnit {
                     break;
                 } else if (input.equalsIgnoreCase("help")) {
                     showHelp();
-                }
-                // todo: instruction checks
-                else {
-                    System.out.println("'" + input + "' is not a command. See 'help'.");
+                } else if (input.equalsIgnoreCase("DumpRegs")) {
+                    DumpRegs();
+                } else {
+                    parseInstruction(input);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -55,7 +57,36 @@ public class ControlUnit {
         System.out.println("    AND [destination], [source]     [destination] := [destination] " + (char)8744 + " [source]");
         System.out.println("    OR [destination], [source]      [destination] := [destination] " + (char)8743 + " [source]");
         System.out.println("    NOT [destination], [source]     [destination] := [destination] " + (char)172 + " [source]");
+        System.out.println("    DumpRegs    Displays registers");
         System.out.println("    help    Show this message");
         System.out.println("    exit    Quit the emulator");
+    }
+
+    private void DumpRegs() {
+        // TODO: 3/3/2016 order registers and flags
+        System.out.println(Registers.REGISTERS);
+    }
+
+    private void parseInstruction(String instruction) {
+        // POSSIBLE TODO: 3/3/2016 use strict MASM syntax and require commas between args
+        instruction = instruction.replaceAll(",", " "); // replace commas with spaces
+        instruction = instruction.replaceAll("[ ]{2,}", " "); // replace areas with more than one space with only one space
+        String[] instructions = instruction.split(" "); // separate arguments by spaces
+
+        try {
+            if (instructions.length == 3) {
+                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), instructions[1].getClass(), instructions[2].getClass());
+                method.invoke(new ALU(), instructions[1], instructions[2]);
+            } else if (instructions.length == 2) {
+                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), instructions[1].getClass());
+                method.invoke(new ALU(), instructions[1]);
+            } else {
+                System.out.println("There is no such method '" + instructions[0] + "' that takes " + (instructions.length - 1) +
+                        " arguments. See 'help'.");
+            }
+        } catch (SecurityException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+            System.out.println("There is no such method '" + instructions[0] + "' that takes " + (instructions.length - 1) +
+                    " arguments. See 'help'.");
+        }
     }
 }
