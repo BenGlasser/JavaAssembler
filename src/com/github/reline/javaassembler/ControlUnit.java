@@ -64,7 +64,8 @@ public class ControlUnit {
 
     private void DumpRegs() {
         // TODO: 3/3/2016 order registers and flags
-        System.out.println(Registers.REGISTERS);
+        System.out.println(CPU.REGISTERS);
+        System.out.println(CPU.FLAGS);
     }
 
     private void parseInstruction(String instruction) {
@@ -75,16 +76,18 @@ public class ControlUnit {
 
         try {
             if (instructions.length == 3) {
-                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), instructions[1].getClass(), instructions[2].getClass());
+                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), String.class, String.class);
                 method.invoke(new ALU(), instructions[1], instructions[2]);
             } else if (instructions.length == 2) {
-                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), instructions[1].getClass());
+                Method method = ALU.class.getMethod(instructions[0].toUpperCase(), String.class);
                 method.invoke(new ALU(), instructions[1]);
             } else {
                 System.out.println("There is no such method '" + instructions[0] + "' that takes " + (instructions.length - 1) +
                         " arguments. See 'help'.");
             }
-        } catch (SecurityException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (SecurityException | InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
             System.out.println("There is no such method '" + instructions[0] + "' that takes " + (instructions.length - 1) +
                     " arguments. See 'help'.");
         }
