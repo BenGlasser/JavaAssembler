@@ -10,13 +10,31 @@ public class CPU {
 
     public void initializeRegistersAndFlags() {
 
-        // TODO: 3/4/2016 implement 16 and 8-bit registers
-
+        // 32-bit registers
         REGISTERS.put("EAX", "00000000000000000000000000000000");
         REGISTERS.put("EBX", "00000000000000000000000000000000");
         REGISTERS.put("ECX", "00000000000000000000000000000000");
         REGISTERS.put("EDX", "00000000000000000000000000000000");
 
+        // 16-bit registers
+        REGISTERS.put("AX", "0000000000000000");
+        REGISTERS.put("BX", "0000000000000000");
+        REGISTERS.put("CX", "0000000000000000");
+        REGISTERS.put("DX", "0000000000000000");
+
+        // upper 8-bit registers
+        REGISTERS.put("AH", "00000000");
+        REGISTERS.put("BH", "00000000");
+        REGISTERS.put("CH", "00000000");
+        REGISTERS.put("DH", "00000000");
+
+        // lower 8-bit registers
+        REGISTERS.put("AL", "00000000");
+        REGISTERS.put("BL", "00000000");
+        REGISTERS.put("CL", "00000000");
+        REGISTERS.put("DL", "00000000");
+
+        // FLAGS
         FLAGS.put("DF", "0"); // Direction; 1 = string op's process down from high to low address
         FLAGS.put("IF", "0"); // Interrupt; whether interrupts can occur. 1 = enabled
         FLAGS.put("TF", "0"); // Trap; single step debugging
@@ -28,5 +46,4 @@ public class CPU {
         FLAGS.put("CF", "0"); // Carry; result of unsigned op. is too large or below zero. 1 = carry/borrow
         FLAGS.put("OF", "0"); // Overflow; result of signed op. is too large or small. 1 = carry/underflow
     }
-
 }

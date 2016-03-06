@@ -53,11 +53,12 @@ public class ControlUnit {
                            "                    [value]=doublew: EAX := EDX:EAX / [value]");
         System.out.println("    INC [source]    [source] := [source] + 1");
         System.out.println("    DEC [source]    [source] := [source] - 1");
-        System.out.println("    CMP [arg1], [arg1]      [arg1] - [arg2]");
+        System.out.println("    CMP [arg1], [arg2]      [arg1] - [arg2]");
         System.out.println("    AND [destination], [source]     [destination] := [destination] " + (char)8744 + " [source]");
         System.out.println("    OR [destination], [source]      [destination] := [destination] " + (char)8743 + " [source]");
         System.out.println("    NOT [destination], [source]     [destination] := [destination] " + (char)172 + " [source]");
-        System.out.println("    DumpRegs    Displays registers");
+        System.out.println("    DumpRegs    Displays registers and flags");
+        System.out.println("    print [destination]    Display a single register or flag");
         System.out.println("    help    Show this message");
         System.out.println("    exit    Quit the emulator");
     }
