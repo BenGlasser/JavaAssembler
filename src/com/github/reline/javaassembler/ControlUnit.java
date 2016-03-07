@@ -42,25 +42,25 @@ public class ControlUnit {
     }
 
     private void showHelp() {
-        System.out.println("Commands:");
-        System.out.println("    ADD [destination], [source]     [destination] := [destination] + [source]");
-        System.out.println("    SUB [destination], [source]     [destination] := [destination] - [source]");
-        System.out.println("    MUL [value]     [value]=byte: AX := AL*[value]\n" +
+        System.out.println("Commands:\n"
+        + "    ADD [destination], [source]     [destination] := [destination] + [source]\n"
+        + "    SUB [destination], [source]     [destination] := [destination] - [source]\n"
+        + "    MUL [value]     [value]=byte: AX := AL*[value]\n" +
                            "                    [value]=word: DX:AX := AX*[value]\n" +
-                           "                    [value]=doublew: EDX:EAX := EAX*[value]");
-        System.out.println("    DIV [value]     [value]=byte: AL := AX / [value]\n" +
+                           "                    [value]=doublew: EDX:EAX := EAX*[value]\n"
+        + "    DIV [value]     [value]=byte: AL := AX / [value]\n" +
                            "                    [value]=word: AX := DX:AX / [value]\n" +
-                           "                    [value]=doublew: EAX := EDX:EAX / [value]");
-        System.out.println("    INC [source]    [source] := [source] + 1");
-        System.out.println("    DEC [source]    [source] := [source] - 1");
-        System.out.println("    CMP [arg1], [arg2]      [arg1] - [arg2]");
-        System.out.println("    AND [destination], [source]     [destination] := [destination] " + (char)8744 + " [source]");
-        System.out.println("    OR [destination], [source]      [destination] := [destination] " + (char)8743 + " [source]");
-        System.out.println("    NOT [destination], [source]     [destination] := [destination] " + (char)172 + " [source]");
-        System.out.println("    DumpRegs    Displays registers and flags");
-        System.out.println("    print [destination]    Display a single register or flag");
-        System.out.println("    help    Show this message");
-        System.out.println("    exit    Quit the emulator");
+                           "                    [value]=doublew: EAX := EDX:EAX / [value]\n"
+        + "    INC [source]    [source] := [source] + 1\n"
+        + "    DEC [source]    [source] := [source] - 1\n"
+        + "    CMP [arg1], [arg2]      [arg1] - [arg2]\n"
+        + "    AND [destination], [source]     [destination] := [destination] " + (char)8744 + " [source]\n"
+        + "    OR [destination], [source]      [destination] := [destination] " + (char)8743 + " [source]\n"
+        + "    NOT [destination], [source]     [destination] := [destination] " + (char)172 + " [source]\n"
+        + "    DumpRegs    Displays registers and flags\n"
+        + "    print [destination]    Display a single register or flag\n"
+        + "    help    Show this message\n"
+        + "    exit    Quit the emulator");
     }
 
     private void DumpRegs() {
